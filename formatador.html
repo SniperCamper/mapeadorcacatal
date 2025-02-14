@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formatar Texto</title>
+    <style>
+        body {
+            background-image: url('fundo.webp');
+            background-size: cover;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #ffcc00;
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e6b800;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+        }
+    </style>
+    <script>
+        function formatText() {
+            var inputText = document.getElementById("inputText").value;
+            var formattedText = inputText.replace(/[^\w\s\u00C0-\u00FF]/gi, '');
+            document.getElementById("outputText").value = formattedText;
+        }
+    </script>
+</head>
+<body>
+    <h1 style="text-align: center;">Formatador de Texto</h1>
+    <h2>Insira o texto no formulário e clique em "Formatar"</h2>
+    <textarea id="inputText" rows="10" cols="50"></textarea>
+    <div class="button-container">
+        <button onclick="formatText()">Formatar</button>
+    </div>
+    <h3>Texto Formatado:</h3>
+    <textarea id="outputText" rows="10" cols="50" readonly></textarea>
+</body>
+</html>
