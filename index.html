@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapeamento de Palavras</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-image: url('fundo.webp');
+            background-repeat: repeat;
+            background-size: contain;
+        }
+        .container {
+            width: 80%;
+            max-width: 1400px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em;
+        }
+        .config-group {
+            width: 80%;
+            max-width: 700px;
+            margin: 15px auto; /* Centraliza o elemento horizontalmente */
+            padding: 10px;
+            background-color: #000;
+            border-radius: 5px;
+        }
+        input[type="text"], textarea {
+            width: 98%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+        }
+        .result {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            white-space: nowrap;
+            overflow-x: auto;
+        }
+        .highlight {
+            color: #00ff00;
+            font-weight: bold;
+        }
+        .highlight-word {
+            color: #ffff00;
+            font-weight: bold;
+        }
+        .index-options {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mapeamento de Palavras</h1>
+        
+        <div class="config-group">
+            <div class="index-options">
+                <label>
+                    <input type="radio" name="indexBase" value="0" checked> Começar do 0
+                </label>
+                <label>
+                    <input type="radio" name="indexBase" value="1"> Começar do 1
+                </label>
+            </div>
+            <input type="text" id="indexInput" placeholder="Digite o índice">
+        </div>
+
+        <textarea id="text1" rows="5" placeholder="Digite o primeiro texto aqui"></textarea>
+        <textarea id="text2" rows="5" placeholder="Digite o segundo texto aqui (opcional)"></textarea>
+        <input type="text" id="highlightWords" placeholder="Palavras a destacar separadas por espaço">
+
+        <div class="result">
+            <h4>Texto 1:</h4>
+            <p id="resultText1"></p>
+        </div>
+        <div class="result">
+            <h4>Texto 2:</h4>
+            <p id="resultText2"></p>
+        </div>
+    </div>
+
+    <script>
+        function processText(text) {
+            return text
+                .replace(/[\r\n\t]/g, ' ')
+                .replace(/[^\w\s\u00C0-\u00FF'-]/g, ' ')
+                .split(/\s+/)
+                .filter(word => word.length > 0);
+        }
+
+        const indexInput = document.getElementById('indexInput');
+        const resultText1 = document.getElementById('resultText1');
+        const resultText2 = document.getElementById('resultText2');
+        const indexRadios = document.querySelectorAll('input[name="indexBase"]');
+        const text1 = document.getElementById('text1');
+        const text2 = document.getElementById('text2');
+        const highlightWordsInput = document.getElementById('highlightWords');
+
+        let indexBase = 0;
+
+        // Atualizar base numérica
+        indexRadios.forEach(radio => {
+            radio.addEventListener('change', () => {
+                indexBase = parseInt(radio.value);
+                updateResults();
+            });
+        });
+
+        indexInput.addEventListener('input', () => updateResults());
+        highlightWordsInput.addEventListener('input', () => updateResults());
+        text1.addEventListener('input', () => updateResults());
+        text2.addEventListener('input', () => updateResults());
+
+        function updateResults() {
+            const inputIndex = parseInt(indexInput.value);
+            const actualIndex = indexBase === 1 ? inputIndex - 1 : inputIndex;
+
+            const words1 = processText(text1.value);
+            const words2 = processText(text2.value);
+
+            const maxIndex1 = words1.length - 1;
+            const maxIndex2 = words2.length - 1;
+
+            const highlightWords = highlightWordsInput.value.split(' ');
+
+            // Processar o primeiro texto
+            if (isNaN(inputIndex) || actualIndex < 0 || actualIndex > maxIndex1) {
+                resultText1.innerHTML = `Índice inválido (0 a ${maxIndex1})`;
+            } else {
+                const start1 = Math.max(0, actualIndex - 10);
+                const end1 = Math.min(words1.length, actualIndex + 11);
+                const displayWords1 = words1.slice(start1, end1);
+
+                resultText1.innerHTML = displayWords1.map((word, i) => {
+                    const currentIndex = start1 + i;
+                    if (currentIndex === actualIndex) {
+                        return `<span class="highlight">${word}</span>`;
+                    } else if (highlightWords.includes(word)) {
+                        return `<span class="highlight-word">${word}</span>`;
+                    } else {
+                        return word;
+                    }
+                }).join(" ");
+            }
+
+            // Processar o segundo texto, se fornecido
+            if (text2.value.trim().length > 0) {
+                if (isNaN(inputIndex) || actualIndex < 0 || actualIndex > maxIndex2) {
+                    resultText2.innerHTML = `Índice inválido (0 a ${maxIndex2})`;
+                } else {
+                    const start2 = Math.max(0, actualIndex - 10);
+                    const end2 = Math.min(words2.length, actualIndex + 11);
+                    const displayWords2 = words2.slice(start2, end2);
+
+                    resultText2.innerHTML = displayWords2.map((word, i) => {
+                        const currentIndex = start2 + i;
+                        if (currentIndex === actualIndex) {
+                            return `<span class="highlight">${word}</span>`;
+                        } else if (highlightWords.includes(word)) {
+                            return `<span class="highlight-word">${word}</span>`;
+                        } else {
+                            return word;
+                        }
+                    }).join(" ");
+                }
+            } else {
+                resultText2.innerHTML = ''; // Limpar resultado se o texto 2 não for fornecido
+            }
+        }
+    </script>
+</body>
+</html>
