@@ -56,7 +56,7 @@
         .config-group {
             width: 80%;
             max-width: 700px;
-            margin: 15px auto; /* Centraliza o elemento horizontalmente */
+            margin: 15px auto;
             padding: 10px;
             background-color: #000;
             border-radius: 5px;
@@ -79,11 +79,15 @@
             overflow-x: auto;
         }
         .highlight {
-            color: #00ff00;
+            color: #ff0000;
             font-weight: bold;
         }
         .highlight-word {
             color: #ffff00;
+            font-weight: bold;
+        }
+        .highlight-word-same {
+            color: #00ff00;
             font-weight: bold;
         }
         .index-options {
@@ -186,7 +190,9 @@
 
                 resultText1.innerHTML = displayWords1.map((word, i) => {
                     const currentIndex = start1 + i;
-                    if (currentIndex === actualIndex) {
+                    if (currentIndex === actualIndex && highlightWords.includes(word)) {
+                        return `<span class="highlight-word-same">${word}</span>`;
+                    } else if (currentIndex === actualIndex) {
                         return `<span class="highlight">${word}</span>`;
                     } else if (highlightWords.includes(word)) {
                         return `<span class="highlight-word">${word}</span>`;
@@ -207,7 +213,9 @@
 
                     resultText2.innerHTML = displayWords2.map((word, i) => {
                         const currentIndex = start2 + i;
-                        if (currentIndex === actualIndex) {
+                        if (currentIndex === actualIndex && highlightWords.includes(word)) {
+                            return `<span class="highlight-word-same">${word}</span>`;
+                        } else if (currentIndex === actualIndex) {
                             return `<span class="highlight">${word}</span>`;
                         } else if (highlightWords.includes(word)) {
                             return `<span class="highlight-word">${word}</span>`;
