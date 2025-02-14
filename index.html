@@ -21,6 +21,25 @@
             width: 80%;
             max-width: 1400px;
         }
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .header button {
+            background-color: #ffcc00;
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+        .header button:hover {
+            background-color: #e6b800;
+        }
         h1 {
             text-align: center;
             font-size: 3em;
@@ -66,6 +85,9 @@
     </style>
 </head>
 <body>
+    <div class="header">
+        <button onclick="window.location.href='formatador.html'">Formatador</button>
+    </div>
     <div class="container">
         <h1>Mapeamento de Palavras</h1>
         
