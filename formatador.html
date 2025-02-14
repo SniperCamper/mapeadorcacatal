@@ -37,13 +37,36 @@
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: #e6b800;
-        }
+            button:hover {
+                background-color: #e6b800;
+            }
 
         h1, h2, h3 {
             text-align: center;
         }
+
+        .header {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+            .header button {
+                background-color: #ffcc00;
+                color: #000000;
+                border: none;
+                padding: 10px 20px;
+                font-size: 1em;
+                cursor: pointer;
+                border-radius: 5px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+                transition: background-color 0.3s ease;
+                margin: 10px;
+            }
+
+                .header button:hover {
+                    background-color: #e6b800;
+                }
     </style>
     <script>
         function formatText() {
@@ -54,6 +77,9 @@
     </script>
 </head>
 <body>
+    <div class="header">
+        <button onclick="window.location.href='index.html'">Mapeador</button>
+    </div>
     <h1 style="text-align: center;">Formatador de Texto</h1>
     <h2>Insira o texto no formulário e clique em "Formatar"</h2>
     <textarea id="inputText" rows="10" cols="50"></textarea>
