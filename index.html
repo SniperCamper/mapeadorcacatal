@@ -24,7 +24,16 @@
         .header {
             width: 100%;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+        .header .social-icons a img {
+            width: 64px;
+            height: 64px;
         }
         .header button {
             background-color: #ffcc00;
@@ -86,6 +95,12 @@
 </head>
 <body>
     <div class="header">
+        <div class="social-icons">
+            <a href="https://discord.gg/CQpxwqk2Ug" target="_blank"><img src="icons/discord.png" alt="Discord"></a>
+            <a href="https://www.instagram.com/mestrecacatal/" target="_blank"><img src="icons/insta.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/channel/UCjVt3SWdIQL7Ty5ITXgEqnA" target="_blank"><img src="icons/youtube.png" alt="YouTube"></a>
+            <a href="https://www.facebook.com/groups/1436355617246687" target="_blank"><img src="icons/facebook.png" alt="Facebook"></a>
+        </div>
         <button onclick="window.location.href='formatador.html'">Formatador</button>
     </div>
     <div class="container">

@@ -37,9 +37,9 @@
             transition: background-color 0.3s ease;
         }
 
-            button:hover {
-                background-color: #e6b800;
-            }
+        button:hover {
+            background-color: #e6b800;
+        }
 
         h1, h2, h3 {
             text-align: center;
@@ -48,36 +48,47 @@
         .header {
             width: 100%;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
         }
 
-            .header button {
-                background-color: #ffcc00;
-                color: #000000;
-                border: none;
-                padding: 10px 20px;
-                font-size: 1em;
-                cursor: pointer;
-                border-radius: 5px;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-                transition: background-color 0.3s ease;
-                margin: 10px;
-            }
+        .header button {
+            background-color: #ffcc00;
+            color: #000000;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
 
-                .header button:hover {
-                    background-color: #e6b800;
-                }
+        .header button:hover {
+            background-color: #e6b800;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+            margin: 10px;
+        }
+
+        .social-icons a img {
+            width: 65px;
+            height: 64px;
+        }
     </style>
-    <script>
-        function formatText() {
-            var inputText = document.getElementById("inputText").value;
-            var formattedText = inputText.replace(/[^\w\s\u00C0-\u00FF]/gi, '');
-            document.getElementById("outputText").value = formattedText;
-        }
-    </script>
 </head>
 <body>
     <div class="header">
+        <div class="social-icons">
+            <a href="https://discord.gg/CQpxwqk2Ug" target="_blank"><img src="icons/discord.png" alt="Discord"></a>
+            <a href="https://www.instagram.com/mestrecacatal/" target="_blank"><img src="icons/insta.png" alt="Instagram"></a>
+            <a href="https://www.youtube.com/channel/UCjVt3SWdIQL7Ty5ITXgEqnA" target="_blank"><img src="icons/youtube.png" alt="YouTube"></a>
+            <a href="https://www.facebook.com/groups/1436355617246687" target="_blank"><img src="icons/facebook.png" alt="Facebook"></a>
+        </div>
         <button onclick="window.location.href='index.html'">Mapeador</button>
     </div>
     <h1 style="text-align: center;">Formatador de Texto</h1>
@@ -88,5 +99,13 @@
     </div>
     <h3>Texto Formatado:</h3>
     <textarea id="outputText" rows="10" cols="50" readonly></textarea>
+
+    <script>
+        function formatText() {
+            var inputText = document.getElementById("inputText").value;
+            var formattedText = inputText.replace(/[^\w\s\u00C0-\u00FF]/gi, '');
+            document.getElementById("outputText").value = formattedText;
+        }
+    </script>
 </body>
 </html>
